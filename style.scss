@@ -1,0 +1,27 @@
+
+
+$primary-colour: aquamarine;
+$accent-colour: coral;
+$text-colour:wheat;
+$font-weight: (
+    "smallish": 300,
+    "mediumish": 500,
+    "hench": 700
+);
+
+
+body {
+    background: $primary-colour;
+    color: $text-colour;  
+}
+
+.main {
+    width: 80%;
+    margin: 0 auto;
+        #{&}-paragraph {
+        font-weight: map-get($font-weight, hench );
+        &:hover {
+            color: $accent-colour;
+        }
+        }
+}
