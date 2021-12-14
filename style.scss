@@ -1,14 +1,29 @@
+@import './resets';
+@import './variables';
 
+@function weight($weight-name){
+    @return map-get($font-weight, $weight-name );
+}
 
-$primary-colour: aquamarine;
-$accent-colour: coral;
-$text-colour:wheat;
-$font-weight: (
-    "smallish": 300,
-    "mediumish": 500,
-    "hench": 700
-);
+@mixin flexCenter($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
 
+@mixin theme($plain-theme: true) {
+    @if $plain-theme {
+        background: lighten($primary-colour, 100%);
+        color: darken($text-colour, 100%);
+    }
+}
+
+@mixin mobile {
+    @media (max-width: $mobile){
+        @content;
+    } 
+}
 
 body {
     background: $primary-colour;
@@ -16,12 +31,36 @@ body {
 }
 
 .main {
+@include flexCenter(row);
     width: 80%;
     margin: 0 auto;
-        #{&}-paragraph {
-        font-weight: map-get($font-weight, hench );
+        #{&}-paragraph1 {
+        // font-weight: map-get($font-weight, hench );
+        font-weight: weight(hench);
         &:hover {
             color: $accent-colour;
         }
         }
+        
+        #{&}-paragraph2 {
+            @extend .main-paragraph1;
+            &:hover {
+                color: aqua;
+            }
+            
+        }
+
+
+        @include mobile {
+            @include flexCenter(column);
+                color: hotpink;
+                font-weight: weight(smallish);
+                #{&}-paragraph:hover {
+                    color: indigo;
+                }
+        }
+}
+
+.plain {
+    @include theme($plain-theme: false);
 }
